@@ -2,31 +2,40 @@ package ba.unsa.etf.rpr;
 
 public class RadnoMjesto {
 
-    public RadnoMjesto(String naziv, double koeficijent, Radnik radnik) {
+    private String naziv;
+    private double koeficijent;
+    private Radnik radnik;
 
+    public RadnoMjesto(String naziv, double koeficijent, Radnik radnik) {
+        this.naziv = naziv;
+        this.koeficijent = koeficijent;
+        this.radnik = radnik;
     }
 
     public RadnoMjesto() {
-
     }
 
     public String getNaziv() {
-        return null;
+        return naziv;
     }
 
-    public int getKoeficijent() {
-        return 0;
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
+    }
+
+    public double getKoeficijent() {
+        return koeficijent;
+    }
+
+    public void setKoeficijent(double koeficijent) {
+        this.koeficijent = koeficijent;
     }
 
     public Radnik getRadnik() {
-            return null;
+        return radnik;
     }
 
-    public void setNaziv(String portir) {
-
-    }
-
-    public void setKoeficijent(int i) {
-
+    public void setRadnik(Radnik radnik) {
+        this.radnik = radnik;
     }
 }
