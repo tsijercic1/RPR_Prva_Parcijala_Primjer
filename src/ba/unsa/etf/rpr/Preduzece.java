@@ -1,10 +1,7 @@
 package ba.unsa.etf.rpr;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Function;
+import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Preduzece {
@@ -32,8 +29,16 @@ public class Preduzece {
     }
 
     public Map<RadnoMjesto, Integer> sistematizacija() {
+        Map<RadnoMjesto,Integer> result = new HashMap<>();
 
-        return null;
+        for(RadnoMjesto radnoMjesto:radnaMjesta){
+            if(!result.containsKey(radnoMjesto)){
+                result.put(radnoMjesto,1);
+            }else{
+                result.put(radnoMjesto,result.get(radnoMjesto)+1);
+            }
+        }
+        return result;
     }
 
     public void zaposli(Radnik radnik, String naziv) {
@@ -48,7 +53,13 @@ public class Preduzece {
     }
 
     public Set<Radnik> radnici() {
-        return null;
+        Set<Radnik> radniks = new TreeSet();
+        for (RadnoMjesto radnoMjesto:radnaMjesta) {
+            if(radnoMjesto.getRadnik()!=null){
+                radniks.add(radnoMjesto.getRadnik());
+            }
+        }
+        return radniks;
     }
 
     public double iznosPlate() {
@@ -70,11 +81,20 @@ public class Preduzece {
                 });
     }
 
-    public List<Radnik> filterRadnici(Function<Radnik,Boolean> function) {
-        return null;
+    public List<Radnik> filterRadnici(Predicate<Radnik> function) {
+//        List<Radnik> radnici = new ArrayList<>();
+//        for(RadnoMjesto radnoMjesto : radnaMjesta){
+//            if(function.apply(radnoMjesto.getRadnik())){
+//                radnici.add(radnoMjesto.getRadnik());
+//            }
+//        }
+
+        return radnaMjesta.stream().filter(radnoMjesto -> radnoMjesto.getRadnik()!=null).map(radnoMjesto -> radnoMjesto.getRadnik())
+                .filter(function).collect(Collectors.toList());
+        //return radnici;
     }
 
     public List<Radnik> vecaProsjecnaPlata(double prosjecnaPlata) {
-        return null;
+        return filterRadnici(radnik -> radnik.prosjecnaPlata()>prosjecnaPlata);
     }
 }

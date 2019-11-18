@@ -2,7 +2,7 @@ package ba.unsa.etf.rpr;
 
 import java.util.Arrays;
 
-public class Radnik {
+public class Radnik implements Comparable{
     private String imePrezime, jmbg;
     private double[] plate = new double[1000];
     private int brDodanih = 0;
@@ -48,5 +48,16 @@ public class Radnik {
         }
         plate[brDodanih] = plata;
         brDodanih++;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if(o instanceof Radnik){
+          Radnik radnik = (Radnik) o;
+          int compare = Double.compare(prosjecnaPlata(),radnik.prosjecnaPlata());
+          if(compare == 0)return imePrezime.compareTo(radnik.imePrezime);
+            return -compare;
+        }
+        return 0;
     }
 }

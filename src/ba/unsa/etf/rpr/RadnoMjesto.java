@@ -38,4 +38,25 @@ public class RadnoMjesto {
     public void setRadnik(Radnik radnik) {
         this.radnik = radnik;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        RadnoMjesto that = (RadnoMjesto) o;
+
+        if (Double.compare(that.koeficijent, koeficijent) != 0) return false;
+        return naziv != null ? naziv.equals(that.naziv) : that.naziv == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = naziv != null ? naziv.hashCode() : 0;
+        temp = Double.doubleToLongBits(koeficijent);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }
